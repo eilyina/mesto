@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto</title>
+</head>
+
+<body class="page">
+    <div class="popup">
+        <div class="popup__container">
+            <form class="popup__form">
+                <h4 class="popup__title">Редактировать профиль</h4>
+                <input type="text" class="popup__input popup__input_type_name">
+                <input type="text" class="popup__input popup__input_type_professions">
+                <input type="submit" value="Сохранить" class="popup__submit"></input>
+                <div class="popup__cross"></div>
+
+            </form>
+        </div>
+
+    </div>
+    <header class="header">
+        <div class="header__logo"></div>
+        <div class="header__line"></div>
+    </header>
+
+    <section class="profile">
+
+        <div class="profile__infoBlock">
+            <div class="profile__image"></div>
+            <div class="profile__info">
+                <div class="profile__editTitle">
+                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <button class="profile__editButton">
+                        <div class="profile__pen"></div>
+                    </button>
+                </div>
+
+                <p class="profile__subtitle">Исследователь океана</p>
+            </div>
+        </div>
+
+        <button class="profile__addButton">
+            <div class="profile__cross"></div>
+        </button>
+
+    </section>
+
+    <section class="photo-grid">
+        <div class="photo-grid__item">
+            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="photo-grid__image">
+            <div class="photo-grid__titleContainer">
+                <p class="photo-grid__title">Карачаевск</p>
+                <button class="photo-grid__like"></button>
+            </div>
+
+        </div>
+        <div class="photo-grid__item">
+            <img src="./images/elbrus.png" alt="гора Эльбрус" class="photo-grid__image">
+            <div class="photo-grid__titleContainer">
+                <p class="photo-grid__title">гора Эльбрус</p>
+                <button class="photo-grid__like"></button>
+            </div>
+
+        </div>
+        <div class="photo-grid__item">
+            <img src="./images/dombai.png" alt="Домбай" class="photo-grid__image">
+            <div class="photo-grid__titleContainer">
+                <p class="photo-grid__title">Домбай</p>
+                <button class="photo-grid__like"></button>
+            </div>
+
+        </div>
+        <div class="photo-grid__item">
+            <img src="./images/taganay.jpg" alt="Таганай" class="photo-grid__image">
+            <div class="photo-grid__titleContainer">
+                <p class="photo-grid__title">Таганай</p>
+                <button class="photo-grid__like"></button>
+            </div>
+
+        </div>
+        <div class="photo-grid__item">
+            <img src="./images/baikal.jpg" alt="Байкал" class="photo-grid__image">
+            <div class="photo-grid__titleContainer">
+                <p class="photo-grid__title">Байкал</p>
+                <button class="photo-grid__like"></button>
+            </div>
+
+        </div>
+        <div class="photo-grid__item">
+            <img src="./images/karelia.jpg" alt="Карелия" class="photo-grid__image">
+            <div class="photo-grid__titleContainer">
+                <p class="photo-grid__title">Карелия</p>
+                <button class="photo-grid__like"></button>
+            </div>
+
+        </div>
+    </section>
+    <footer class="footer">
+        <p class="footer__copyright">&copy;2022 Mesto Russia</p>
+    </footer>
+
+    <script src="./script/script.js"></script>
+
+</body>
+
+</html>

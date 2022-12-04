@@ -1,0 +1,11 @@
+.profile__cross {
+    height: 22px;
+    width: 22px;
+    background-image: url("../../../images/cross.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+
+}
