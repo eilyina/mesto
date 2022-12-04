@@ -4,10 +4,12 @@
     background-color: #000000;
     border: 1px solid #FFFFFF;
     display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 0;
     padding: 0;
+    background-image: url("../../../images/pen.png");
+    background-position: 50%;
+    background-repeat: no-repeat;
+    align-self: center;
 
 }
 

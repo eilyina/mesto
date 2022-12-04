@@ -16,7 +16,7 @@
                 <h4 class="popup__title">Редактировать профиль</h4>
                 <input type="text" class="popup__input popup__input_type_name">
                 <input type="text" class="popup__input popup__input_type_professions">
-                <input type="submit" value="Сохранить" class="popup__submit"></input>
+                <input type="submit" value="Сохранить" class="popup__submit">
                 <div class="popup__cross"></div>
 
             </form>
@@ -28,78 +28,81 @@
         <div class="header__line"></div>
     </header>
 
-    <section class="profile">
+    <main class="content">
+        <section class="profile">
 
-        <div class="profile__infoBlock">
-            <div class="profile__image"></div>
-            <div class="profile__info">
-                <div class="profile__editTitle">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button class="profile__editButton">
-                        <div class="profile__pen"></div>
-                    </button>
+            <div class="profile__infoBlock">
+                <div class="profile__image"></div>
+                <div class="profile__info">
+                    <div class="profile__editTitle">
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <button class="profile__editButton">
+                        </button>
+                    </div>
+
+                    <p class="profile__subtitle">Исследователь океана</p>
+                </div>
+            </div>
+
+            <button class="profile__addButton">
+            </button>
+
+        </section>
+
+        <section class="photo-grid">
+            <div class="photo-grid__item">
+                <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="photo-grid__image">
+                <div class="photo-grid__titleContainer">
+                    <p class="photo-grid__title">Карачаевск</p>
+                    <button class="photo-grid__like"></button>
                 </div>
 
-                <p class="profile__subtitle">Исследователь океана</p>
             </div>
-        </div>
+            <div class="photo-grid__item">
+                <img src="./images/elbrus.png" alt="гора Эльбрус" class="photo-grid__image">
+                <div class="photo-grid__titleContainer">
+                    <p class="photo-grid__title">гора Эльбрус</p>
+                    <button class="photo-grid__like"></button>
+                </div>
 
-        <button class="profile__addButton">
-            <div class="profile__cross"></div>
-        </button>
-
-    </section>
-
-    <section class="photo-grid">
-        <div class="photo-grid__item">
-            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="photo-grid__image">
-            <div class="photo-grid__titleContainer">
-                <p class="photo-grid__title">Карачаевск</p>
-                <button class="photo-grid__like"></button>
             </div>
+            <div class="photo-grid__item">
+                <img src="./images/dombai.png" alt="Домбай" class="photo-grid__image">
+                <div class="photo-grid__titleContainer">
+                    <p class="photo-grid__title">Домбай</p>
+                    <button class="photo-grid__like"></button>
+                </div>
 
-        </div>
-        <div class="photo-grid__item">
-            <img src="./images/elbrus.png" alt="гора Эльбрус" class="photo-grid__image">
-            <div class="photo-grid__titleContainer">
-                <p class="photo-grid__title">гора Эльбрус</p>
-                <button class="photo-grid__like"></button>
             </div>
+            <div class="photo-grid__item">
+                <img src="./images/taganay.jpg" alt="Таганай" class="photo-grid__image">
+                <div class="photo-grid__titleContainer">
+                    <p class="photo-grid__title">Таганай</p>
+                    <button class="photo-grid__like"></button>
+                </div>
 
-        </div>
-        <div class="photo-grid__item">
-            <img src="./images/dombai.png" alt="Домбай" class="photo-grid__image">
-            <div class="photo-grid__titleContainer">
-                <p class="photo-grid__title">Домбай</p>
-                <button class="photo-grid__like"></button>
             </div>
+            <div class="photo-grid__item">
+                <img src="./images/baikal.jpg" alt="Байкал" class="photo-grid__image">
+                <div class="photo-grid__titleContainer">
+                    <p class="photo-grid__title">Байкал</p>
+                    <button class="photo-grid__like"></button>
+                </div>
 
-        </div>
-        <div class="photo-grid__item">
-            <img src="./images/taganay.jpg" alt="Таганай" class="photo-grid__image">
-            <div class="photo-grid__titleContainer">
-                <p class="photo-grid__title">Таганай</p>
-                <button class="photo-grid__like"></button>
             </div>
+            <div class="photo-grid__item">
+                <img src="./images/karelia.jpg" alt="Карелия" class="photo-grid__image">
+                <div class="photo-grid__titleContainer">
+                    <p class="photo-grid__title">Карелия</p>
+                    <button class="photo-grid__like"></button>
+                </div>
 
-        </div>
-        <div class="photo-grid__item">
-            <img src="./images/baikal.jpg" alt="Байкал" class="photo-grid__image">
-            <div class="photo-grid__titleContainer">
-                <p class="photo-grid__title">Байкал</p>
-                <button class="photo-grid__like"></button>
             </div>
+        </section>
 
-        </div>
-        <div class="photo-grid__item">
-            <img src="./images/karelia.jpg" alt="Карелия" class="photo-grid__image">
-            <div class="photo-grid__titleContainer">
-                <p class="photo-grid__title">Карелия</p>
-                <button class="photo-grid__like"></button>
-            </div>
+    </main>
 
-        </div>
-    </section>
+
     <footer class="footer">
         <p class="footer__copyright">&copy;2022 Mesto Russia</p>
     </footer>
