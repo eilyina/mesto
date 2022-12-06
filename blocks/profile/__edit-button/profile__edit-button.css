@@ -1,4 +1,4 @@
-.profile__editButton {
+.profile__edit-button {
   height: 24px;
   width: 24px;
   background-color: #000000;
@@ -10,15 +10,16 @@
   background-position: 50%;
   background-repeat: no-repeat;
   align-self: center;
+  cursor: pointer;
 
 }
 
-.profile__editButton:hover {
+.profile__edit-button:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width:800px) {
-  .profile__editButton {
+  .profile__edit-button {
     height: 18px;
     width: 18px;
 
