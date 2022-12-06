@@ -1,27 +1,27 @@
 .photo-grid__like {
-    width: 22px;
-    height: 19px;
-    background-image: url("../../../images/like.svg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border: none;
-    margin: 0;
-    padding: 0;
-    background-color: #ffff;
+  width: 22px;
+  height: 19px;
+  background-image: url("../../../images/like.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: #ffff;
 
 }
 
 .photo-grid__like:hover {
 
-    background-image: url("../../../images/likehover.svg");
+  opacity: 0.5;
 
 
 }
 
 .photo-grid__like:active {
 
-    background-image: url("../../../images/likeactive.svg");
+  background-image: url("../../../images/likeactive.svg");
 
 
 }
