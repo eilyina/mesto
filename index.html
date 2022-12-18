@@ -36,54 +36,19 @@
     </section>
 
     <section class="photo-grid">
-      <div class="photo-grid__item">
-        <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="photo-grid__image">
-        <div class="photo-grid__title-container">
-          <h2 class="photo-grid__title">Карачаевск</h2>
-          <button class="photo-grid__like" type="button"></button>
-        </div>
 
-      </div>
-      <div class="photo-grid__item">
-        <img src="./images/elbrus.png" alt="гора Эльбрус" class="photo-grid__image">
-        <div class="photo-grid__title-container">
-          <h2 class="photo-grid__title">гора Эльбрус</h2>
-          <button class="photo-grid__like" type="button"></button>
-        </div>
 
-      </div>
-      <div class="photo-grid__item">
-        <img src="./images/dombai.png" alt="Домбай" class="photo-grid__image">
-        <div class="photo-grid__title-container">
-          <h2 class="photo-grid__title">Домбай</h2>
-          <button class="photo-grid__like" type="button"></button>
-        </div>
+      <template id="card">
+        <div class="photo-grid__item">
+          <img class="photo-grid__image">
+          <div class="photo-grid__title-container">
+            <h2 class="photo-grid__title"></h2>
+            <button class="photo-grid__like" type="button"></button>
+          </div>
 
-      </div>
-      <div class="photo-grid__item">
-        <img src="./images/taganay.jpg" alt="Таганай" class="photo-grid__image">
-        <div class="photo-grid__title-container">
-          <h2 class="photo-grid__title">Таганай</h2>
-          <button class="photo-grid__like" type="button"></button>
         </div>
+      </template>
 
-      </div>
-      <div class="photo-grid__item">
-        <img src="./images/baikal.jpg" alt="Байкал" class="photo-grid__image">
-        <div class="photo-grid__title-container">
-          <h2 class="photo-grid__title">Байкал</h2>
-          <button class="photo-grid__like" type="button"></button>
-        </div>
-
-      </div>
-      <div class="photo-grid__item">
-        <img src="./images/karelia.jpg" alt="Карелия" class="photo-grid__image">
-        <div class="photo-grid__title-container">
-          <h2 class="photo-grid__title">Карелия</h2>
-          <button class="photo-grid__like" type="button"></button>
-        </div>
-
-      </div>
     </section>
 
 
@@ -96,7 +61,7 @@
 
   <div class="popup popup_type_edit-form">
     <div class="popup__container">
-      <form class="popup__form" name="editForm" method="post">
+      <form class="popup__form popup__form_type_edit" name="editForm" method="post">
         <h4 class="popup__title">Редактировать профиль</h4>
         <input type="text" class="popup__input popup__input_type_name" name="personName" placeholder="Имя">
         <input type="text" class="popup__input popup__input_type_professions" name="personProfession"
@@ -110,10 +75,10 @@
   </div>
   <div class="popup popup_type_create-form">
     <div class="popup__container">
-      <form class="popup__form" name="createForm" method="post">
+      <form class="popup__form popup__form_type_create" name="createForm" method="post">
         <h4 class="popup__title">Новое место</h4>
-        <input type="text" class="popup__input popup__input_type_name" name="titleMesto" placeholder="Название">
-        <input type="text" class="popup__input popup__input_type_professions" name="titleMesto"
+        <input type="text" class="popup__input popup__input_type_place-name" name="titleMesto" placeholder="Название">
+        <input type="text" class="popup__input popup__input_type_place-link" name="titleMesto"
           placeholder="Ссылка на картинку">
         <button type="submit" class="popup__submit">Создать</button>
         <button class="popup__cross popup__cross_type_create" type="button"></button>
