@@ -1,21 +1,21 @@
-let popupEditForm = document.querySelector('.popup_type_edit-form');
-let popupCreateForm = document.querySelector('.popup_type_create-form');
-let popupImage = document.querySelector('.popup_type_photo');
-let editButton = document.querySelector('.profile__edit-button');
-let createButton = document.querySelector('.profile__add-button');
-let closeButtonEditForm = document.querySelector('.popup__cross_type_edit');
-let closeButtonCreateForm = document.querySelector('.popup__cross_type_create');
-let closeButtonImage = document.querySelector('.popup__cross_type_image');
+const popupEditForm = document.querySelector('.popup_type_edit-form');
+const popupCreateForm = document.querySelector('.popup_type_create-form');
+const popupImage = document.querySelector('.popup_type_photo');
+const editButton = document.querySelector('.profile__edit-button');
+const createButton = document.querySelector('.profile__add-button');
+const closeButtonEditForm = popupEditForm.querySelector('.popup__cross_type_edit');
+const closeButtonCreateForm = popupCreateForm.querySelector('.popup__cross_type_create');
+const closeButtonImage = popupImage.querySelector('.popup__cross_type_image');
 
 
-let personName = document.querySelector('.profile__title');
-let personProfessions = document.querySelector('.profile__subtitle');
-let personNameInput = document.querySelector('.popup__input_type_name');
-let personProfessionsInput = document.querySelector('.popup__input_type_professions');
-let editFormElement = document.querySelector('.popup__form_type_edit');
-let createFormElement = document.querySelector('.popup__form_type_create');
-let placeName = createFormElement.querySelector('.popup__input_type_place-name');
-let placeLink = createFormElement.querySelector('.popup__input_type_place-link');
+const personName = document.querySelector('.profile__title');
+const personProfessions = document.querySelector('.profile__subtitle');
+const personNameInput = popupEditForm.querySelector('.popup__input_type_name');
+const personProfessionsInput = popupEditForm.querySelector('.popup__input_type_professions');
+const editFormElement = popupEditForm.querySelector('.popup__form_type_edit');
+const createFormElement = popupCreateForm.querySelector('.popup__form_type_create');
+const placeName = createFormElement.querySelector('.popup__input_type_place-name');
+const placeLink = createFormElement.querySelector('.popup__input_type_place-link');
 const cardTemplate = document.querySelector('#card').content;
 const photoGrid = document.querySelector('.photo-grid');
 const trashButtons = photoGrid.querySelectorAll('.photo-grid__trash');
@@ -46,10 +46,6 @@ const initialCards = [
   {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  },
-  {
-    name: 'карачаев',
-    link: 'C:\Users\novos\Downloads\karachaevsk.jpg'
   }
 ];
 
@@ -61,12 +57,10 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-
   popup.classList.remove('popup_opened');
 }
 
 function switchLike(like) {
-
   like.classList.toggle('photo-grid__like_active');
 }
 
@@ -81,14 +75,10 @@ function handleFormSubmit(evt) {
 
 
 function addItem(photoGrid) {
-
   const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-
-  // наполняем содержимым
   cardElement.querySelector('.photo-grid__image').src = placeLink.value;
   cardElement.querySelector('.photo-grid__title').textContent = placeName.value;
   photoGrid.prepend(cardElement);
-  console.log(photoGrid);
   placeLink.value = '';
   placeName.value = '';
   return photoGrid;
@@ -119,8 +109,6 @@ createButton.addEventListener('click', function () {
 });
 
 closeButtonEditForm.addEventListener('click', function () { closePopup(popupEditForm) });
-console.log(closeButtonEditForm);
-
 closeButtonCreateForm.addEventListener('click', function () { closePopup(popupCreateForm) });
 closeButtonImage.addEventListener('click', function () { closePopup(popupImage) });
 
@@ -136,15 +124,11 @@ photoGrid.addEventListener('click', function (evt) {
   }
 
   if (target.classList.contains('photo-grid__image')) {
-console.log('ddkd');
     popupImage.querySelector('.popup__image').src = target.src;
     popupImage.querySelector('.popup__photo-title').textContent = target.parentElement.querySelector('.photo-grid__title').textContent;
-   openPopup(popupImage);
-   console.log(popupImage);
+    openPopup(popupImage);
 
   }
-
-
 });
 
 
