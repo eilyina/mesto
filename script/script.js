@@ -126,6 +126,7 @@ photoGrid.addEventListener('click', function (evt) {
   if (target.classList.contains('photo-grid__image')) {
     popupImage.querySelector('.popup__image').src = target.src;
     popupImage.querySelector('.popup__photo-title').textContent = target.parentElement.querySelector('.photo-grid__title').textContent;
+    popupImage.querySelector('.popup__image').alt = target.parentElement.querySelector('.photo-grid__title').textContent;
     openPopup(popupImage);
 
   }
