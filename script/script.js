@@ -7,7 +7,6 @@ const closeButtonEditForm = popupEditForm.querySelector('.popup__cross_type_edit
 const closeButtonCreateForm = popupCreateForm.querySelector('.popup__cross_type_create');
 const closeButtonImage = popupImage.querySelector('.popup__cross_type_image');
 
-
 const personName = document.querySelector('.profile__title');
 const personProfessions = document.querySelector('.profile__subtitle');
 const personNameInput = popupEditForm.querySelector('.popup__input_type_name');
@@ -19,8 +18,6 @@ const placeLink = createFormElement.querySelector('.popup__input_type_place-link
 const cardTemplate = document.querySelector('#card').content;
 const photoGrid = document.querySelector('.photo-grid');
 const trashButtons = photoGrid.querySelectorAll('.photo-grid__trash');
-
-
 
 const initialCards = [
   {
