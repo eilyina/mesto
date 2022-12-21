@@ -20,6 +20,7 @@ const trashButtons = photoGrid.querySelectorAll('.photo-grid__trash');
 const photoImage = popupImage.querySelector('.popup__image');
 const photoTitle = popupImage.querySelector('.popup__photo-title');
 
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
@@ -41,12 +42,17 @@ function handleFormSubmit(evt) {
 
 function createCard(name, link) {
   const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-  cardElement.querySelector('.photo-grid__image').src = link;
-  cardElement.querySelector('.photo-grid__title').textContent = name;
-  cardElement.querySelector('.photo-grid__image').alt = name;
-  cardElement.querySelector('.photo-grid__like').addEventListener('click', function (evt) { switchLike(evt.target) });
-  cardElement.querySelector('.photo-grid__trash').addEventListener('click', function (evt) { evt.target.parentElement.remove(); });
-  cardElement.querySelector('.photo-grid__image').addEventListener('click', function (evt) {
+  const cardElementImage = cardElement.querySelector('.photo-grid__image');
+  const cardElementTitle = cardElement.querySelector('.photo-grid__title');
+  const cardElementLike = cardElement.querySelector('.photo-grid__like');
+  const cardElementTrash = cardElement.querySelector('.photo-grid__trash');
+
+  cardElementImage.src = link;
+  cardElementTitle.textContent = name;
+  cardElementImage.alt = name;
+  cardElementLike.addEventListener('click', function (evt) { switchLike(evt.target) });
+  cardElementTrash.addEventListener('click', function (evt) { evt.target.parentElement.remove(); });
+  cardElementImage.addEventListener('click', function (evt) {
     photoImage.src = evt.target.src;
     photoTitle.textContent = evt.target.parentElement.querySelector('.photo-grid__title').textContent;
     photoImage.alt = evt.target.parentElement.querySelector('.photo-grid__title').textContent;
@@ -63,7 +69,7 @@ function handleFormCreateSubmit(evt) {
 }
 
 initialCards.forEach((item) => {
-  let card = createCard(item.name, item.link);
+  const card = createCard(item.name, item.link);
   photoGrid.append(card);
 });
 
