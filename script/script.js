@@ -19,14 +19,27 @@ const photoGrid = document.querySelector('.photo-grid');
 const trashButtons = photoGrid.querySelectorAll('.photo-grid__trash');
 const photoImage = popupImage.querySelector('.popup__image');
 const photoTitle = popupImage.querySelector('.popup__photo-title');
+const inputListCreateForm = Array.from(createFormElement.querySelectorAll('.popup__input'));
+const inputListEditForm = Array.from(editFormElement.querySelectorAll('.popup__input'));
 
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+  document.body.addEventListener('keydown', closePopupEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.body.removeEventListener('keydown', closePopupEsc);
+
+}
+
+function closePopupOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    resetPopup(evt.target);
+    closePopup(evt.target);
+  }
 }
 
 function switchLike(like) {
@@ -39,7 +52,26 @@ function handleFormSubmit(evt) {
   personProfessions.textContent = personProfessionsInput.value;
   closePopup(popupEditForm);
 }
+function closePopupEsc(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    resetPopup(openedPopup);
+    closePopup(openedPopup);
+  }
+}
 
+function resetPopup(openedPopup) {
+
+  const openedForm = openedPopup.querySelector('.popup__form');
+
+  if (!(openedForm === null)) {
+    openedForm.reset();
+    const inputListOpenedForm = Array.from(openedForm.querySelectorAll('.popup__input'));
+    inputListOpenedForm.forEach((inputElement) => {
+      hideInputError(openedForm, inputElement, validation);
+    });
+  }
+}
 function createCard(name, link) {
   const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
   const cardElementImage = cardElement.querySelector('.photo-grid__image');
@@ -79,12 +111,37 @@ editButton.addEventListener('click', function () {
   openPopup(popupEditForm);
   personNameInput.value = personName.textContent;
   personProfessionsInput.value = personProfessions.textContent;
+  const inputList = Array.from(popupEditForm.querySelectorAll(validation.inputSelector));
+  const buttonElement = popupEditForm.querySelector(validation.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement);
+
 });
 createButton.addEventListener('click', function () {
   openPopup(popupCreateForm);
 });
-closeButtonEditForm.addEventListener('click', function () { closePopup(popupEditForm) });
-closeButtonCreateForm.addEventListener('click', function () { closePopup(popupCreateForm) });
+closeButtonEditForm.addEventListener('click', function () {
+  resetPopup(popupEditForm);
+  closePopup(popupEditForm);
+
+});
+closeButtonCreateForm.addEventListener('click', function () {
+  resetPopup(popupCreateForm);
+  closePopup(popupCreateForm);
+});
 closeButtonImage.addEventListener('click', function () { closePopup(popupImage) });
+
+popupEditForm.addEventListener('click', function (evt) {
+  closePopupOverlay(evt);
+});
+
+popupCreateForm.addEventListener('click', function (evt) {
+  closePopupOverlay(evt);
+});
+
+popupImage.addEventListener('click', function (evt) {
+  closePopupOverlay(evt);
+});
+
+enableValidation(validation);
 
 
