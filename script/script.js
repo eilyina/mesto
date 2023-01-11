@@ -98,7 +98,7 @@ editButton.addEventListener('click', function () {
 });
 
 createButton.addEventListener('click', function () {
-  resetForm(popupCreateForm);
+  resetForm(popupCreateForm,validation);
   resetError(popupCreateForm,validation);
   openPopup(popupCreateForm);
 });

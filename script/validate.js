@@ -24,16 +24,16 @@ const hasInvalidInput = (inputList) => {
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
 
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement,validation) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
-    buttonElement.classList.add('popup__submit_disabled');
+    buttonElement.classList.add(validation.inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
     // иначе сделай кнопку активной
     buttonElement.disabled = false;
-    buttonElement.classList.remove('popup__submit_disabled');
+    buttonElement.classList.remove(validation.inactiveButtonClass);
   }
 };
 
@@ -51,7 +51,7 @@ const setEventListeners = (formElement, validation) => {
   // сделаем из них массив методом Array.from
   const inputList = Array.from(formElement.querySelectorAll(validation.inputSelector));
   const buttonElement = formElement.querySelector(validation.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement,validation);
 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
@@ -60,7 +60,7 @@ const setEventListeners = (formElement, validation) => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
       isValid(formElement, inputElement, validation);
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonElement,validation);
     });
   });
 };
@@ -86,11 +86,11 @@ const resetError = (formElement, validation) => {
     hideInputError(formElement, inputElement, validation);
     // актуализируем состояние кнопки сабмита
   });
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement,validation);
 
 };
 
-function resetForm(openedPopup) {
-  const openedForm = openedPopup.querySelector('.popup__form');
+function resetForm(openedPopup,validation) {
+  const openedForm = openedPopup.querySelector(validation.formSelector);
   openedForm.reset();
 };
