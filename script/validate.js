@@ -3,7 +3,6 @@ const showInputError = (formElement, inputElement, errorMessage, validation) => 
   inputElement.classList.add(validation.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(validation.errorClass);
-
 };
 
 const hideInputError = (formElement, inputElement, validation) => {
@@ -29,16 +28,16 @@ const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
-    //buttonElement.classList.add('popup__submit_inactive');
+    buttonElement.classList.add('popup__submit_disabled');
     buttonElement.disabled = true;
   } else {
     // иначе сделай кнопку активной
     buttonElement.disabled = false;
-    //buttonElement.classList.remove('popup__submit_inactive');
+    buttonElement.classList.remove('popup__submit_disabled');
   }
 };
 
-const isValid = (formElement, inputElement) => {
+const isValid = (formElement, inputElement, validation) => {
   if (!inputElement.validity.valid) {
     // Передадим сообщение об ошибке вторым аргументом
     showInputError(formElement, inputElement, inputElement.validationMessage, validation);
@@ -60,7 +59,7 @@ const setEventListeners = (formElement, validation) => {
     inputElement.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
-      isValid(formElement, inputElement);
+      isValid(formElement, inputElement, validation);
       toggleButtonState(inputList, buttonElement);
     });
   });
@@ -77,4 +76,21 @@ const enableValidation = (validation) => {
     // передав ей элемент формы
     setEventListeners(formElement, validation);
   });
+};
+
+const resetError = (formElement, validation) => {
+  const inputList = Array.from(formElement.querySelectorAll(validation.inputSelector));
+  const buttonElement = formElement.querySelector(validation.submitButtonSelector);
+  // очищаем ошибки валидации
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, validation);
+    // актуализируем состояние кнопки сабмита
+  });
+  toggleButtonState(inputList, buttonElement);
+
+};
+
+function resetForm(openedPopup) {
+  const openedForm = openedPopup.querySelector('.popup__form');
+  openedForm.reset();
 };

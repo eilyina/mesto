@@ -32,27 +32,9 @@
 
       <button class="profile__add-button" type="button">
       </button>
-
     </section>
-
     <section class="photo-grid">
-
-
-      <template id="card">
-        <div class="photo-grid__item">
-          <img class="photo-grid__image">
-          <button class="photo-grid__trash" type="button"></button>
-          <div class="photo-grid__title-container">
-            <h2 class="photo-grid__title"></h2>
-            <button class="photo-grid__like" type="button"></button>
-          </div>
-
-        </div>
-      </template>
-
     </section>
-
-
   </main>
 
 
@@ -62,56 +44,68 @@
 
   <div class="popup popup_type_edit-form">
     <div class="popup__container">
-      <form class="popup__form popup__form_type_edit" name="editForm" method="post" novalidate>
-        <h4 class="popup__title">Редактировать профиль</h4>
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form class="popup__form popup__form_type_edit" name="edit-form" method="post" novalidate>
+
         <label class="popup__input-label">
-          <input type="text" class="popup__input popup__input_type_name" name="personName" placeholder="Имя"
-            minlength="2" maxlength="40" id="personName" required>
-          <span class="personName-error popup__input-error"></span>
+          <input type="text" class="popup__input popup__input_type_name" name="person-name" placeholder="Имя"
+            minlength="2" maxlength="40" id="person-name" required>
+          <span class="person-name-error popup__input-error"></span>
         </label>
 
         <label class="popup__input-label">
-          <input type="text" class="popup__input popup__input_type_professions" name="personProfession"
-            placeholder="О себе" minlength="2" maxlength="200" id="personProfession" required>
-          <span class="personProfession-error popup__input-error"></span>
+          <input type="text" class="popup__input popup__input_type_professions" name="person-profession"
+            placeholder="О себе" minlength="2" maxlength="200" id="person-profession" required>
+          <span class="person-profession-error popup__input-error"></span>
         </label>
 
         <button type="submit" class="popup__submit">Сохранить</button>
-        <button class="popup__cross popup__cross_type_edit" type="button"></button>
+
 
       </form>
+      <button class="popup__cross popup__cross_type_edit" type="button"></button>
     </div>
 
   </div>
   <div class="popup popup_type_create-form">
     <div class="popup__container">
-      <form class="popup__form popup__form_type_create" name="createForm" method="post" novalidate>
-        <h4 class="popup__title">Новое место</h4>
+      <h3 class="popup__title">Новое место</h3>
+      <form class="popup__form popup__form_type_create" name="create-form" method="post" novalidate>
         <label class="popup__input-label">
-          <input type="text" class="popup__input popup__input_type_place-name" name="titleMesto" placeholder="Название"
-            minlength="2" maxlength="30" required id="titleMesto">
-          <span class="titleMesto-error popup__input-error"></span>
+          <input type="text" class="popup__input popup__input_type_place-name" name="title-mesto" placeholder="Название"
+            minlength="2" maxlength="30" required id="title-mesto">
+          <span class="title-mesto-error popup__input-error"></span>
         </label>
         <label class="popup__input-label">
-          <input type="url" class="popup__input popup__input_type_place-link" name="urlMesto"
-            placeholder="Ссылка на картинку" minlength="2" maxlength="200" required id="urlMesto">
-          <span class="urlMesto-error popup__input-error"></span>
+          <input type="url" class="popup__input popup__input_type_place-link" name="url-mesto"
+            placeholder="Ссылка на картинку" minlength="2" maxlength="200" required id="url-mesto">
+          <span class="url-mesto-error popup__input-error"></span>
         </label>
 
         <button type="submit" class="popup__submit">Создать</button>
-        <button class="popup__cross popup__cross_type_create" type="button"></button>
-
       </form>
+      <button class="popup__cross popup__cross_type_create" type="button"></button>
     </div>
   </div>
 
   <div class="popup popup_type_photo">
-    <div class="popup__container">
-      <img class="popup__image" alt=" " src=" ">
+    <div class="popup__image-container">
+      <img class="popup__image" alt=" " src="# ">
       <h4 class="popup__photo-title"></h4>
       <button class="popup__cross popup__cross_type_image" type="button"></button>
     </div>
   </div>
+  <template id="card">
+    <div class="photo-grid__item">
+      <img class="photo-grid__image">
+      <button class="photo-grid__trash" type="button"></button>
+      <div class="photo-grid__title-container">
+        <h2 class="photo-grid__title"></h2>
+        <button class="photo-grid__like" type="button"></button>
+      </div>
+
+    </div>
+  </template>
 
   <script src="./script/constants.js"></script>
   <script src="./script/validate.js"></script>
