@@ -1,3 +1,7 @@
+import FormValidator from './FormValidator.js';
+import Card from './Card.js';
+import { initialCards, validation } from './constants.js';
+
 const popupEditForm = document.querySelector('.popup_type_edit-form');
 const popupCreateForm = document.querySelector('.popup_type_create-form');
 const popupImage = document.querySelector('.popup_type_photo');
@@ -14,12 +18,12 @@ const editFormElement = popupEditForm.querySelector('.popup__form_type_edit');
 const createFormElement = popupCreateForm.querySelector('.popup__form_type_create');
 const placeName = createFormElement.querySelector('.popup__input_type_place-name');
 const placeLink = createFormElement.querySelector('.popup__input_type_place-link');
-const cardTemplate = document.querySelector('#card').content;
 const photoGrid = document.querySelector('.photo-grid');
-const trashButtons = photoGrid.querySelectorAll('.photo-grid__trash');
-const photoImage = popupImage.querySelector('.popup__image');
-const photoTitle = popupImage.querySelector('.popup__photo-title');
 
+const validationCreateForm = new FormValidator(validation, createFormElement);
+const validationEditForm = new FormValidator(validation, editFormElement);
+validationCreateForm.enableValidation();
+validationEditForm.enableValidation();
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -37,16 +41,27 @@ function closePopupOverlay(evt) {
   }
 }
 
-function switchLike(like) {
-  like.classList.toggle('photo-grid__like_active');
-}
-
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   personName.textContent = personNameInput.value;
   personProfessions.textContent = personProfessionsInput.value;
   closePopup(popupEditForm);
 }
+
+function handleFormCreateSubmit(evt) {
+  evt.preventDefault();
+  const cardData = {
+    name: placeName.value,
+    link: placeLink.value
+
+  }
+  const card = new Card(cardData, '#card');
+  const cardElem = card.generateCard();
+  photoGrid.prepend(cardElem);
+  closePopup(popupCreateForm);
+  createFormElement.reset();
+}
+
 function closePopupEsc(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
@@ -54,58 +69,24 @@ function closePopupEsc(evt) {
   }
 }
 
-function createCard(name, link) {
-  const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-  const cardElementImage = cardElement.querySelector('.photo-grid__image');
-  const cardElementTitle = cardElement.querySelector('.photo-grid__title');
-  const cardElementLike = cardElement.querySelector('.photo-grid__like');
-  const cardElementTrash = cardElement.querySelector('.photo-grid__trash');
-
-  cardElementImage.src = link;
-  cardElementTitle.textContent = name;
-  cardElementImage.alt = name;
-  cardElementLike.addEventListener('click', function (evt) { switchLike(evt.target) });
-  cardElementTrash.addEventListener('click', function (evt) { evt.target.parentElement.remove(); });
-  cardElementImage.addEventListener('click', function (evt) {
-    photoImage.src = evt.target.src;
-    photoTitle.textContent = evt.target.parentElement.querySelector('.photo-grid__title').textContent;
-    photoImage.alt = evt.target.parentElement.querySelector('.photo-grid__title').textContent;
-    openPopup(popupImage);
-  });
-  return cardElement;
-}
-
-function handleFormCreateSubmit(evt) {
-  evt.preventDefault();
-  photoGrid.prepend(createCard(placeName.value, placeLink.value));
-  closePopup(popupCreateForm);
-  createFormElement.reset();
-}
-
-initialCards.forEach((item) => {
-  const card = createCard(item.name, item.link);
-  photoGrid.append(card);
-});
-
 editFormElement.addEventListener('submit', handleEditFormSubmit);
 createFormElement.addEventListener('submit', handleFormCreateSubmit);
 editButton.addEventListener('click', function () {
   openPopup(popupEditForm);
   personNameInput.value = personName.textContent;
   personProfessionsInput.value = personProfessions.textContent;
-  resetError(popupEditForm, validation);
+  validationEditForm.resetError(popupEditForm);
 
 });
 
 createButton.addEventListener('click', function () {
-  resetForm(popupCreateForm,validation);
-  resetError(popupCreateForm,validation);
+  createFormElement.reset();
+  validationCreateForm.resetError(createFormElement);
   openPopup(popupCreateForm);
 });
 
 closeButtonEditForm.addEventListener('click', function () {
   closePopup(popupEditForm);
-
 });
 
 closeButtonCreateForm.addEventListener('click', function () {
@@ -120,6 +101,11 @@ popupCreateForm.addEventListener('mousedown', closePopupOverlay);
 
 popupImage.addEventListener('mousedown', closePopupOverlay);
 
-enableValidation(validation);
 
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '#card');
+  const cardElem = card.generateCard();
+  photoGrid.append(cardElem);
+});
 
