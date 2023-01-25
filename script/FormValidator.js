@@ -56,43 +56,33 @@ export default class FormValidator {
   _setEventListeners = (formElement) => {
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
-    const inputList = Array.from(formElement.querySelectorAll(this._validation.inputSelector));
-    const buttonElement = formElement.querySelector(this._validation.submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement);
+    this._inputList = Array.from(formElement.querySelectorAll(this._validation.inputSelector));
+    this._buttonSubmit = formElement.querySelector(this._validation.submitButtonSelector);
+    this._toggleButtonState(this._inputList, this._buttonSubmit);
 
     // Обойдём все элементы полученной коллекции
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
       inputElement.addEventListener('input', () => {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         this._isValid(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._buttonSubmit);
       });
     });
   };
 
   enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll(this._validation.formSelector));
-
-    // Переберём полученную коллекцию
-    formList.forEach((formElement) => {
-      // Для каждой формы вызовем функцию setEventListeners,
-      // передав ей элемент формы
-      this._setEventListeners(formElement);
-    });
-
+    this._setEventListeners(this._formElement);
   };
 
   resetError = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll(this._validation.inputSelector));
-    const buttonElement = formElement.querySelector(this._validation.submitButtonSelector);
     // очищаем ошибки валидации
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
       // актуализируем состояние кнопки
     });
-    this._toggleButtonState(inputList, buttonElement);
+    this._toggleButtonState(this._inputList, this._buttonSubmit);
   };
 }
 

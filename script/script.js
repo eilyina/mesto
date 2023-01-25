@@ -2,26 +2,28 @@ import FormValidator from './FormValidator.js';
 import Card from './Card.js';
 import { initialCards, validation } from './constants.js';
 
-const popupEditForm = document.querySelector('.popup_type_edit-form');
+
+const popupProfile = document.querySelector('.popup_type_edit-form');
 const popupCreateForm = document.querySelector('.popup_type_create-form');
 const popupImage = document.querySelector('.popup_type_photo');
 const editButton = document.querySelector('.profile__edit-button');
 const createButton = document.querySelector('.profile__add-button');
-const closeButtonEditForm = popupEditForm.querySelector('.popup__cross_type_edit');
-const closeButtonCreateForm = popupCreateForm.querySelector('.popup__cross_type_create');
-const closeButtonImage = popupImage.querySelector('.popup__cross_type_image');
+const buttonClosePopupProfile = popupProfile.querySelector('.popup__cross_type_edit');
+const buttonCloseCreateForm = popupCreateForm.querySelector('.popup__cross_type_create');
+const buttonClosePopupImage = popupImage.querySelector('.popup__cross_type_image');
 const personName = document.querySelector('.profile__title');
 const personProfessions = document.querySelector('.profile__subtitle');
-const personNameInput = popupEditForm.querySelector('.popup__input_type_name');
-const personProfessionsInput = popupEditForm.querySelector('.popup__input_type_professions');
-const editFormElement = popupEditForm.querySelector('.popup__form_type_edit');
-const createFormElement = popupCreateForm.querySelector('.popup__form_type_create');
-const placeName = createFormElement.querySelector('.popup__input_type_place-name');
-const placeLink = createFormElement.querySelector('.popup__input_type_place-link');
+const personNameInput = popupProfile.querySelector('.popup__input_type_name');
+const personProfessionsInput = popupProfile.querySelector('.popup__input_type_professions');
+const formEditProfile = popupProfile.querySelector('.popup__form_type_edit');
+const formCreateCard = popupCreateForm.querySelector('.popup__form_type_create');
+const placeName = formCreateCard.querySelector('.popup__input_type_place-name');
+const placeLink = formCreateCard.querySelector('.popup__input_type_place-link');
 const photoGrid = document.querySelector('.photo-grid');
 
-const validationCreateForm = new FormValidator(validation, createFormElement);
-const validationEditForm = new FormValidator(validation, editFormElement);
+
+const validationCreateForm = new FormValidator(validation, formCreateCard);
+const validationEditForm = new FormValidator(validation, formEditProfile);
 validationCreateForm.enableValidation();
 validationEditForm.enableValidation();
 
@@ -45,7 +47,7 @@ function handleEditFormSubmit(evt) {
   evt.preventDefault();
   personName.textContent = personNameInput.value;
   personProfessions.textContent = personProfessionsInput.value;
-  closePopup(popupEditForm);
+  closePopup(popupProfile);
 }
 
 function handleFormCreateSubmit(evt) {
@@ -55,11 +57,9 @@ function handleFormCreateSubmit(evt) {
     link: placeLink.value
 
   }
-  const card = new Card(cardData, '#card');
-  const cardElem = card.generateCard();
-  photoGrid.prepend(cardElem);
+  photoGrid.prepend(createCard(cardData));
   closePopup(popupCreateForm);
-  createFormElement.reset();
+  formCreateCard.reset();
 }
 
 function closePopupEsc(evt) {
@@ -69,33 +69,39 @@ function closePopupEsc(evt) {
   }
 }
 
-editFormElement.addEventListener('submit', handleEditFormSubmit);
-createFormElement.addEventListener('submit', handleFormCreateSubmit);
+function createCard(cardData) {
+  const card = new Card(cardData, '#card');
+  const cardElem = card.generateCard();
+  return cardElem;
+}
+
+formEditProfile.addEventListener('submit', handleEditFormSubmit);
+formCreateCard.addEventListener('submit', handleFormCreateSubmit);
 editButton.addEventListener('click', function () {
-  openPopup(popupEditForm);
+  openPopup(popupProfile);
   personNameInput.value = personName.textContent;
   personProfessionsInput.value = personProfessions.textContent;
-  validationEditForm.resetError(popupEditForm);
+  validationEditForm.resetError(popupProfile);
 
 });
 
 createButton.addEventListener('click', function () {
-  createFormElement.reset();
-  validationCreateForm.resetError(createFormElement);
+  formCreateCard.reset();
+  validationCreateForm.resetError(formCreateCard);
   openPopup(popupCreateForm);
 });
 
-closeButtonEditForm.addEventListener('click', function () {
-  closePopup(popupEditForm);
+buttonClosePopupProfile.addEventListener('click', function () {
+  closePopup(popupProfile);
 });
 
-closeButtonCreateForm.addEventListener('click', function () {
+buttonCloseCreateForm.addEventListener('click', function () {
   closePopup(popupCreateForm);
 });
 
-closeButtonImage.addEventListener('click', function () { closePopup(popupImage) });
+buttonClosePopupImage.addEventListener('click', function () { closePopup(popupImage) });
 
-popupEditForm.addEventListener('mousedown', closePopupOverlay);
+popupProfile.addEventListener('mousedown', closePopupOverlay);
 
 popupCreateForm.addEventListener('mousedown', closePopupOverlay);
 
@@ -104,8 +110,8 @@ popupImage.addEventListener('mousedown', closePopupOverlay);
 
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#card');
-  const cardElem = card.generateCard();
-  photoGrid.append(cardElem);
+  photoGrid.append(createCard(item));
 });
+
+export { openPopup };
 
