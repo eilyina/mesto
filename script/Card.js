@@ -1,4 +1,4 @@
-import { openPopup } from './script.js';
+import { openPopup, popupImage, photoImage, photoTitle } from './script.js';
 
 export default class Card {
   constructor(data, templateSelector) {
@@ -23,9 +23,6 @@ export default class Card {
   }
 
   _setEventListeners() {
-    const popupImage = document.querySelector('.popup_type_photo');
-    const photoImage = popupImage.querySelector('.popup__image');
-    const photoTitle = popupImage.querySelector('.popup__photo-title');
 
     this._element.querySelector('.photo-grid__like').addEventListener('click', () => {
       this._switchLike();

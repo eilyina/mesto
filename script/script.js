@@ -20,7 +20,8 @@ const formCreateCard = popupCreateForm.querySelector('.popup__form_type_create')
 const placeName = formCreateCard.querySelector('.popup__input_type_place-name');
 const placeLink = formCreateCard.querySelector('.popup__input_type_place-link');
 const photoGrid = document.querySelector('.photo-grid');
-
+const photoImage = popupImage.querySelector('.popup__image');
+const photoTitle = popupImage.querySelector('.popup__photo-title');
 
 const validationCreateForm = new FormValidator(validation, formCreateCard);
 const validationEditForm = new FormValidator(validation, formEditProfile);
@@ -81,13 +82,13 @@ editButton.addEventListener('click', function () {
   openPopup(popupProfile);
   personNameInput.value = personName.textContent;
   personProfessionsInput.value = personProfessions.textContent;
-  validationEditForm.resetError(popupProfile);
+  validationEditForm.resetError();
 
 });
 
 createButton.addEventListener('click', function () {
   formCreateCard.reset();
-  validationCreateForm.resetError(formCreateCard);
+  validationCreateForm.resetError();
   openPopup(popupCreateForm);
 });
 
@@ -113,5 +114,5 @@ initialCards.forEach((item) => {
   photoGrid.append(createCard(item));
 });
 
-export { openPopup };
+export { openPopup, popupImage, photoImage, photoTitle};
 

@@ -1,10 +1,10 @@
 
 export default class FormValidator {
-  //объект настроек с селекторами и классами формы;
-  //элемент той формы, которая валидируется
   constructor(validation, formElement) {
     this._validation = validation;
     this._formElement = formElement;
+    this._inputList = Array.from(formElement.querySelectorAll(this._validation.inputSelector));
+    this._buttonSubmit = formElement.querySelector(this._validation.submitButtonSelector);
   }
   _showInputError = (inputElement, errorMessage) => {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
@@ -19,9 +19,9 @@ export default class FormValidator {
     errorElement.classList.remove(this._validation.errorClass);
     errorElement.textContent = '';
   };
-  _hasInvalidInput = (inputList) => {
+  _hasInvalidInput = () => {
     // проходим по этому массиву методом some
-    return inputList.some((inputElement) => {
+    return this._inputList.some((inputElement) => {
       // Если поле не валидно, колбэк вернёт true
       // Обход массива прекратится и вся функция
       // hasInvalidInput вернёт true
@@ -31,16 +31,16 @@ export default class FormValidator {
 
   // Функция принимает массив полей ввода
   // и элемент кнопки, состояние которой нужно менять
-  _toggleButtonState = (inputList, buttonElement) => {
+  _toggleButtonState = () => {
     // Если есть хотя бы один невалидный инпут
-    if (this._hasInvalidInput(inputList)) {
+    if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
-      buttonElement.classList.add(this._validation.inactiveButtonClass);
-      buttonElement.disabled = true;
+      this._buttonSubmit.classList.add(this._validation.inactiveButtonClass);
+      this._buttonSubmit.disabled = true;
     } else {
       // иначе сделай кнопку активной
-      buttonElement.disabled = false;
-      buttonElement.classList.remove(this._validation.inactiveButtonClass);
+      this._buttonSubmit.disabled = false;
+      this._buttonSubmit.classList.remove(this._validation.inactiveButtonClass);
     }
   };
 
@@ -53,12 +53,11 @@ export default class FormValidator {
     }
   };
 
-  _setEventListeners = (formElement) => {
+  _setEventListeners = () => {
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
-    this._inputList = Array.from(formElement.querySelectorAll(this._validation.inputSelector));
-    this._buttonSubmit = formElement.querySelector(this._validation.submitButtonSelector);
-    this._toggleButtonState(this._inputList, this._buttonSubmit);
+
+    this._toggleButtonState();
 
     // Обойдём все элементы полученной коллекции
     this._inputList.forEach((inputElement) => {
@@ -67,22 +66,22 @@ export default class FormValidator {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         this._isValid(inputElement);
-        this._toggleButtonState(this._inputList, this._buttonSubmit);
+        this._toggleButtonState();
       });
     });
   };
 
   enableValidation = () => {
-    this._setEventListeners(this._formElement);
+    this._setEventListeners();
   };
 
-  resetError = (formElement) => {
+  resetError = () => {
     // очищаем ошибки валидации
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
       // актуализируем состояние кнопки
     });
-    this._toggleButtonState(this._inputList, this._buttonSubmit);
+    this._toggleButtonState();
   };
 }
 
