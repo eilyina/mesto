@@ -4,12 +4,13 @@ import PopupWithImage from '../script/PopupWithImage.js';
 import PopupWithForm from '../script/PopupWithForm.js';
 import Card from '../script/Card.js';
 
-import { editButton, createButton,initialCards, validation,
+import {
+  editButton, createButton, initialCards, validation,
   selectorPopupCreateForm, selectorPopupEditForm, formCreateCard, formEditProfile,
-  selectorPersonName,selectorPersonAbout, personNameInput, personProfessionsInput } from '../script/constants.js';
+  selectorPersonName, selectorPersonAbout, personNameInput, personProfessionsInput
+} from '../script/constants.js';
 import '../pages/index.css';
 import UserInfo from '../script/UserInfo.js';
-
 
 const validationCreateForm = new FormValidator(validation, formCreateCard);
 const validationEditForm = new FormValidator(validation, formEditProfile);
@@ -41,11 +42,12 @@ const cardsList = new Section({
 );
 cardsList.renderItems();
 
-editButton.addEventListener('click', () => {
-  const popupEditForm = new PopupWithForm(selectorPopupEditForm, () => {
-    User.setUserInfo(personNameInput.value, personProfessionsInput.value)
-  });
+const popupEditForm = new PopupWithForm(selectorPopupEditForm, () => {
+  User.setUserInfo(personNameInput.value, personProfessionsInput.value)
+});
+popupEditForm.addListner();
 
+editButton.addEventListener('click', () => {
   personNameInput.value = User.getUserInfo().userName;
   personProfessionsInput.value = User.getUserInfo().userAbout;
   validationEditForm.resetError();
@@ -53,15 +55,13 @@ editButton.addEventListener('click', () => {
 
 })
 
+const popupCreateForm = new PopupWithForm(selectorPopupCreateForm, (cardData) => {
+  const newCard = createCard(cardData);
+  cardsList.addLeftItem(newCard);
+});
+popupCreateForm.addListner();
+
 createButton.addEventListener('click', () => {
-  const popupCreateForm = new PopupWithForm(selectorPopupCreateForm, (cardData) => {
-    console.log(cardData);
-    const newCard = createCard(cardData);
-    console.log(newCard)
-    cardsList.addLeftItem(newCard);
-    //console.log(cardsList)
-  });
-  formCreateCard.reset();
   validationCreateForm.resetError();
   popupCreateForm.openPopup();
 
