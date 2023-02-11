@@ -1,10 +1,9 @@
-import { openPopup, popupImage, photoImage, photoTitle } from './script.js';
-
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, handleCardClick, templateSelector) {
     this._title = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -31,27 +30,28 @@ export default class Card {
     this._element.querySelector('.photo-grid__trash').addEventListener('click', () => { this._element.remove() })
 
     this._buttonOpenPopupImage.addEventListener('click', () => {
-      photoImage.src = this._link;
-      photoTitle.textContent = this._title;
-      photoImage.alt = this._title;
-      openPopup(popupImage);
+      this._handleCardClick();
 
     });
   }
 
   generateCard() {
-    // Запишем разметку в приватное поле _element.
-    // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
     this._buttonOpenPopupImage = this._element.querySelector('.photo-grid__image');
     this._setEventListeners();
-    // Добавим данные
 
     this._buttonOpenPopupImage.src = this._link;
     this._buttonOpenPopupImage.alt = this._title;
     this._element.querySelector('.photo-grid__title').textContent = this._title;
-    // Вернём элемент наружу
     return this._element;
+  }
+
+  getCardTitle() {
+    return this._title;
+  }
+
+  getCardLLink() {
+    return this._link;
   }
 
 }
