@@ -5,40 +5,29 @@ export default class PopupWithForm extends Popup {
     super(selector);
     this._handleFormSubmit = handleFormSubmit;
     this._element = this._popup.querySelector('.popup__form');
+    this._inputList = this._element.querySelectorAll('.popup__input');
   }
   _getInputValues() {
     this._formValues = {};
-    const placeName = this._element.querySelector('.popup__input_type_place-name');
-    const placeLink = this._element.querySelector('.popup__input_type_place-link');
-    const personNameInput = this._element.querySelector('.popup__input_type_name');
-    const personProfessionsInput = this._element.querySelector('.popup__input_type_professions');
-
-    if (this._element.classList.contains('popup__form_type_edit')) {
-
-      this._formValues.userName = personNameInput.value;
-      this._formValues.userAbout = personProfessionsInput.value;
-    }
-
-    if (this._element.classList.contains('popup__form_type_create')) {
-      this._formValues.name = placeName.value;
-      this._formValues.link = placeLink.value;
-    }
+    this._inputList.forEach(input => {
+      this._formValues[input.name] = input.value;
+    });
     return this._formValues;
   }
-  _setEventListeners() {
-    super._setEventListeners()
+
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
+  setEventListeners() {
+    super.setEventListeners()
     this._element.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      this._element.reset();
       this.closePopup();
     });
-  }
-  addListner(){
-    this._setEventListeners();
-  }
-  openPopup() {
-    this._popup.classList.add('popup_opened');
   }
 
   closePopup() {

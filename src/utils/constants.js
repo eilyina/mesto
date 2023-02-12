@@ -12,8 +12,6 @@ const formEditProfile = popupProfile.querySelector('.popup__form_type_edit');
 const selectorPopupEditForm = '.popup_type_edit-form';
 const selectorPersonName = '.profile__title';
 const selectorPersonAbout = '.profile__subtitle';
-const personNameInput = popupProfile.querySelector('.popup__input_type_name');
-const personProfessionsInput = popupProfile.querySelector('.popup__input_type_professions');
 
 const initialCards = [
   {
@@ -53,4 +51,4 @@ const validation = {
 
 export {initialCards,validation, editButton, createButton,
   selectorPopupCreateForm, selectorPopupEditForm, formCreateCard,
-  selectorPersonName,selectorPersonAbout, personNameInput, personProfessionsInput, photoImage, photoTitle, formEditProfile};
+  selectorPersonName,selectorPersonAbout, photoImage, photoTitle, formEditProfile};

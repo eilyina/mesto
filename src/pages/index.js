@@ -7,8 +7,8 @@ import Card from '../script/Card.js';
 import {
   editButton, createButton, initialCards, validation,
   selectorPopupCreateForm, selectorPopupEditForm, formCreateCard, formEditProfile,
-  selectorPersonName, selectorPersonAbout, personNameInput, personProfessionsInput
-} from '../script/constants.js';
+  selectorPersonName, selectorPersonAbout, photoImage, photoTitle
+} from '../utils/constants.js';
 import '../pages/index.css';
 import UserInfo from '../script/UserInfo.js';
 
@@ -17,12 +17,13 @@ const validationEditForm = new FormValidator(validation, formEditProfile);
 validationCreateForm.enableValidation();
 validationEditForm.enableValidation();
 
-const User = new UserInfo({ selecrorUserTitle: selectorPersonName, selecrorUserInfo: selectorPersonAbout });
+const user = new UserInfo({ selectorUserTitle: selectorPersonName, selectorUserInfo: selectorPersonAbout });
 
-const PopupImage = new PopupWithImage('.popup_type_photo');
+const popupImage = new PopupWithImage('.popup_type_photo', photoImage, photoTitle);
+popupImage.setEventListeners();
 
 function handleCardClick() {
-  PopupImage.openPopup(this.getCardTitle(), this.getCardLLink());
+  popupImage.openPopup(this.getCardTitle(), this.getCardLLink());
 }
 
 function createCard(cardData) {
@@ -42,14 +43,15 @@ const cardsList = new Section({
 );
 cardsList.renderItems();
 
-const popupEditForm = new PopupWithForm(selectorPopupEditForm, () => {
-  User.setUserInfo(personNameInput.value, personProfessionsInput.value)
+const popupEditForm = new PopupWithForm(selectorPopupEditForm, (userData) => {
+  user.setUserInfo(userData);
 });
-popupEditForm.addListner();
+
+popupEditForm.setEventListeners();
 
 editButton.addEventListener('click', () => {
-  personNameInput.value = User.getUserInfo().userName;
-  personProfessionsInput.value = User.getUserInfo().userAbout;
+  const userInfo = user.getUserInfo();
+  popupEditForm.setInputValues(userInfo);
   validationEditForm.resetError();
   popupEditForm.openPopup();
 
@@ -59,7 +61,7 @@ const popupCreateForm = new PopupWithForm(selectorPopupCreateForm, (cardData) =>
   const newCard = createCard(cardData);
   cardsList.addLeftItem(newCard);
 });
-popupCreateForm.addListner();
+popupCreateForm.setEventListeners();
 
 createButton.addEventListener('click', () => {
   validationCreateForm.resetError();

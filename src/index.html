@@ -48,13 +48,13 @@
       <form class="popup__form popup__form_type_edit" name="edit-form" method="post" novalidate>
 
         <label class="popup__input-label">
-          <input type="text" class="popup__input popup__input_type_name" name="person-name" placeholder="Имя"
+          <input type="text" class="popup__input popup__input_type_name" name="name" placeholder="Имя"
             minlength="2" maxlength="40" id="person-name" required>
           <span class="person-name-error popup__input-error"></span>
         </label>
 
         <label class="popup__input-label">
-          <input type="text" class="popup__input popup__input_type_professions" name="person-profession"
+          <input type="text" class="popup__input popup__input_type_professions" name="info"
             placeholder="О себе" minlength="2" maxlength="200" id="person-profession" required>
           <span class="person-profession-error popup__input-error"></span>
         </label>
@@ -72,12 +72,12 @@
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form popup__form_type_create" name="create-form" method="post" novalidate>
         <label class="popup__input-label">
-          <input type="text" class="popup__input popup__input_type_place-name" name="title-mesto" placeholder="Название"
+          <input type="text" class="popup__input popup__input_type_place-name" name="name" placeholder="Название"
             minlength="2" maxlength="30" required id="title-mesto">
           <span class="title-mesto-error popup__input-error"></span>
         </label>
         <label class="popup__input-label">
-          <input type="url" class="popup__input popup__input_type_place-link" name="url-mesto"
+          <input type="url" class="popup__input popup__input_type_place-link" name="link"
             placeholder="Ссылка на картинку" minlength="2" maxlength="200" required id="url-mesto">
           <span class="url-mesto-error popup__input-error"></span>
         </label>

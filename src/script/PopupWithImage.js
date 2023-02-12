@@ -1,15 +1,16 @@
 const { default: Popup } = require("./Popup");
-import { photoImage, photoTitle } from './constants.js';
 
 export default class PopupWithImage extends Popup {
-  constructor(selector) {
+  constructor(selector, image, title) {
     super(selector);
+    this._image = image;
+    this._title = title;
   }
 
   openPopup(title, link) {
-    photoImage.src = link;
-    photoTitle.textContent = title;
-    photoImage.alt = title;
+    this._image.src = link;
+    this._title.textContent = title;
+    this._image.alt = title;
     super.openPopup();
   }
 }
