@@ -32,4 +32,8 @@ export default class Popup {
 
   }
 
+  updateTextSubmitButton(text){
+    this._popup.querySelector('.popup__submit').textContent=text;
+  }
+
 }

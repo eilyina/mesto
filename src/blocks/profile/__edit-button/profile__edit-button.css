@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   background-image: url("../../../images/pen.png");
+  background-size: 10px;
   background-position: 50%;
   background-repeat: no-repeat;
   align-self: center;
