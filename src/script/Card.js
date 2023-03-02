@@ -15,11 +15,7 @@ export default class Card {
   }
 
   _isAuthor() {
-    if (this.IdOwnerd == this._currentUserId) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.IdOwnerd == this._currentUserId;
   }
 
   _countLikes() {
@@ -61,6 +57,7 @@ export default class Card {
 
   deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {

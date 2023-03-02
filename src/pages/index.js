@@ -8,7 +8,7 @@ import Card from '../script/Card.js';
 import Api from '../script/Api.js';
 
 import {
-  editButton, createButton, initialCards, validation,
+  editButton, createButton, validation,
   selectorPopupCreateForm, selectorPopupEditForm, formCreateCard, formEditProfile,
   selectorPersonName, selectorPersonAbout, photoImage, photoTitle, selectorPopupConfirm,
   apiConfig, editAvatarButton, selectorPopupEditAvatar, formEditAvatar
@@ -28,15 +28,31 @@ const api = new Api(apiConfig);
 let currentUserId = '';
 
 const user = new UserInfo({ selectorUserTitle: selectorPersonName, selectorUserInfo: selectorPersonAbout });
-api.getUserInfo()
-  .then(data => {
-    currentUserId = data._id;
-    user.setUserInfo(data);
-    user.setUserAvatar(data);
-  }
-  )
-  .catch(() => console.log('Произошла ошибка'))
 
+function createCard(cardData) {
+  const card = new Card(cardData, handleCardClick, handleTrashClick, handleLikeClick, '#card', currentUserId);
+  const cardElem = card.generateCard();
+  return cardElem;
+}
+
+const cardsList = new Section({
+  items: [], renderer: (item) => {
+    const card = createCard(item);
+    cardsList.addItem(card);
+  }
+}, '.photo-grid');
+
+Promise.all([api.getUserInfo()
+  , api.getInitialCards()
+])
+  .then((data) => {
+    currentUserId = data[0]._id;
+    user.setUserInfo(data[0]);
+    user.setUserAvatar(data[0]);
+    cardsList.renderedItems = data[1];
+    cardsList.renderItems();
+  })
+  .catch((err) => console.log(`${err}`))
 
 const popupImage = new PopupWithImage('.popup_type_photo', photoImage, photoTitle);
 popupImage.setEventListeners();
@@ -45,8 +61,7 @@ function handleCardClick() {
   popupImage.openPopup(this.getCardTitle(), this.getCardLLink());
 }
 
-
-const popupConfirm = new PopupWithConfirmation(selectorPopupConfirm, () => { })
+const popupConfirm = new PopupWithConfirmation(selectorPopupConfirm, null)
 popupConfirm.setEventListeners();
 
 function handleTrashClick() {
@@ -60,6 +75,7 @@ function handleTrashClick() {
       })
       .catch(() => console.log('Произошла ошибка'))
       .finally(() => {
+        popupConfirm.closePopup();
         popupConfirm.updateTextSubmitButton('Да');
       })
   })
@@ -82,31 +98,6 @@ function handleLikeClick(isActive) {
 
 }
 
-function createCard(cardData) {
-  const card = new Card(cardData, handleCardClick, handleTrashClick, handleLikeClick, '#card', currentUserId);
-  const cardElem = card.generateCard();
-  return cardElem;
-}
-
-let cardsList = {}
-api.getInitialCards()
-  .then(data => {
-    cardsList = new Section({
-      items: data,
-      renderer: (item) => {
-        const card = createCard(item);
-        cardsList.addItem(card);
-      }
-    },
-      '.photo-grid'
-    );
-    cardsList.renderItems();
-
-  }
-  )
-  .catch(() => console.log('Произошла ошибка'))
-
-
 const popupEditForm = new PopupWithForm(selectorPopupEditForm, (userData) => {
   popupEditForm.updateTextSubmitButton('Сохранение...');
   api.updateUserInfo(userData)
@@ -114,13 +105,13 @@ const popupEditForm = new PopupWithForm(selectorPopupEditForm, (userData) => {
       user.setUserInfo(data);
     }
     )
+    .catch(() => console.log('Произошла ошибка'))
     .finally(() => {
+      popupEditForm.closePopup();
       popupEditForm.updateTextSubmitButton('Сохранить');
     }
     )
 });
-
-
 popupEditForm.setEventListeners();
 
 editButton.addEventListener('click', () => {
@@ -128,9 +119,7 @@ editButton.addEventListener('click', () => {
   popupEditForm.setInputValues(userInfo);
   validationEditForm.resetError();
   popupEditForm.openPopup();
-
 })
-
 
 const popupCreateForm = new PopupWithForm(selectorPopupCreateForm, (cardData) => {
   popupCreateForm.updateTextSubmitButton('Создание...');
@@ -142,6 +131,7 @@ const popupCreateForm = new PopupWithForm(selectorPopupCreateForm, (cardData) =>
     )
     .catch(() => console.log('Произошла ошибка'))
     .finally(() => {
+      popupCreateForm.closePopup();
       popupCreateForm.updateTextSubmitButton('Создать');
     })
 
@@ -163,6 +153,9 @@ const popupEditAvatar = new PopupWithForm(selectorPopupEditAvatar, (userData) =>
     }
     )
     .catch(() => console.log('Произошла ошибка'))
+    .finally(() => {
+      popupEditAvatar.closePopup();
+    })
 
 });
 popupEditAvatar.setEventListeners();
