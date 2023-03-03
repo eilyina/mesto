@@ -36,7 +36,7 @@ function createCard(cardData) {
 }
 
 const cardsList = new Section({
-  items: [], renderer: (item) => {
+  renderer: (item) => {
     const card = createCard(item);
     cardsList.addItem(card);
   }
@@ -49,8 +49,7 @@ Promise.all([api.getUserInfo()
     currentUserId = data[0]._id;
     user.setUserInfo(data[0]);
     user.setUserAvatar(data[0]);
-    cardsList.renderedItems = data[1];
-    cardsList.renderItems();
+    cardsList.renderItems(data[1]);
   })
   .catch((err) => console.log(`${err}`))
 
@@ -71,11 +70,11 @@ function handleTrashClick() {
     popupConfirm.updateTextSubmitButton('Сохранение...');
     api.deleteCard(card._id)
       .then(() => {
+        popupConfirm.closePopup();
         card.deleteCard();
       })
       .catch(() => console.log('Произошла ошибка'))
       .finally(() => {
-        popupConfirm.closePopup();
         popupConfirm.updateTextSubmitButton('Да');
       })
   })
@@ -102,12 +101,12 @@ const popupEditForm = new PopupWithForm(selectorPopupEditForm, (userData) => {
   popupEditForm.updateTextSubmitButton('Сохранение...');
   api.updateUserInfo(userData)
     .then(data => {
+      popupEditForm.closePopup();
       user.setUserInfo(data);
     }
     )
     .catch(() => console.log('Произошла ошибка'))
     .finally(() => {
-      popupEditForm.closePopup();
       popupEditForm.updateTextSubmitButton('Сохранить');
     }
     )
@@ -125,17 +124,15 @@ const popupCreateForm = new PopupWithForm(selectorPopupCreateForm, (cardData) =>
   popupCreateForm.updateTextSubmitButton('Создание...');
   api.createCard(cardData)
     .then(data => {
+      popupCreateForm.closePopup();
       const newCard = createCard(data);
       cardsList.addLeftItem(newCard);
     }
     )
     .catch(() => console.log('Произошла ошибка'))
     .finally(() => {
-      popupCreateForm.closePopup();
       popupCreateForm.updateTextSubmitButton('Создать');
     })
-
-
 });
 popupCreateForm.setEventListeners();
 
@@ -146,15 +143,16 @@ createButton.addEventListener('click', () => {
 })
 
 const popupEditAvatar = new PopupWithForm(selectorPopupEditAvatar, (userData) => {
-
+  popupEditAvatar.updateTextSubmitButton('Сохранение...');
   api.updateUserAvatar(userData.avatar)
     .then(data => {
+      popupEditAvatar.closePopup();
       user.setUserAvatar(data);
     }
     )
     .catch(() => console.log('Произошла ошибка'))
     .finally(() => {
-      popupEditAvatar.closePopup();
+      popupEditAvatar.updateTextSubmitButton('Сохранить');
     })
 
 });
